@@ -50,7 +50,7 @@
    - Перевірити наявність та доступність інструментів `curl` у терміналі (`curl --version`).
    - Відкрити графічний клієнт Postman або налаштувати розширення REST Client у VS Code.
   
-   <img src=" img/1.png" alt="Головне вікно програми" width="400"/>
+   <img src="img/1.png" alt="" width="400"/>
 
    <img src="assets/2.png" alt="Головне вікно програми" width="400"/>
 
