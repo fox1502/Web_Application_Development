@@ -57,23 +57,23 @@
 2. **Дослідження методів REST API в Postman:**
    - Виконати запит `GET https://dummyjson.com/products/1` — проаналізувати отримане тіло JSON, код статусу `200 OK`, час відповіді та розмір завантажених даних.
 
-     <img src="assets/3.png" alt="Головне вікно програми" width="400"/>
+   <img src="img/3.png" alt="" width="400"/>
      
    - Виконати запит `POST https://dummyjson.com/products/add` — передати у тілі (Body -> raw JSON) об'єкт нового товару (поля `title`, `price`). Проаналізувати код статусу `201 Created` та отриманий згенерований `id`.
   
-     <img src="assets/4.png" alt="Головне вікно програми" width="400"/>
+        <img src="img/4.png" alt="" width="400"/>
 
    - Виконати запит `PUT https://dummyjson.com/products/1` — надіслати змінене поле `title` та перевірити повернений результат.
   
-     <img src="assets/5.png" alt="Головне вікно програми" width="400"/>
+        <img src="img/5.png" alt="" width="400"/>
 
    - Виконати запит `DELETE https://dummyjson.com/products/1` — зафіксувати код статусу та наявність позначки видалення `isDeleted: true`.
   
-    <img src="assets/6.png" alt="Головне вікно програми" width="400"/>
+      <img src="img/6.png" alt="" width="400"/>
 
    - Зберегти створені запити у колекцію Postman (або у файл `requests.http`).
 
-    <img src="assets/7.png" alt="Головне вікно програми" width="400"/>
+      <img src="img/7.png" alt="" width="400"/>
 
 ---
 
