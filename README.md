@@ -77,7 +77,7 @@
 
 ---
 
-2. **Аналіз структури в DevTools:**
+3. **Аналіз структури в DevTools:**
    - Відкрити у веббраузері адресу `https://dummyjson.com/products` із відкритою панеллю **DevTools (вкладка Network)**.
    - Знайти відповідний запит у списку мережевої активності та зафіксувати в окремій таблиці:
      - General: Request URL, Request Method, Status Code, Remote Address.
