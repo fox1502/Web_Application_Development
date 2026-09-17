@@ -57,7 +57,7 @@
 2. **Дослідження методів REST API в Postman:**
    - Виконати запит `GET https://dummyjson.com/products/1` — проаналізувати отримане тіло JSON, код статусу `200 OK`, час відповіді та розмір завантажених даних.
 
-   <img src="img/3.png" alt="" width="400"/>
+       <img src="img/3.png" alt="" width="400"/>
      
    - Виконати запит `POST https://dummyjson.com/products/add` — передати у тілі (Body -> raw JSON) об'єкт нового товару (поля `title`, `price`). Проаналізувати код статусу `201 Created` та отриманий згенерований `id`.
   
