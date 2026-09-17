@@ -52,7 +52,7 @@
   
    <img src="img/1.png" alt="" width="700"/>
 
-     <img src="img/1.png" alt="" width="600"/>
+     <img src="img/2.png" alt="" width="600"/>
 
 2. **Дослідження методів REST API в Postman:**
    - Виконати запит `GET https://dummyjson.com/products/1` — проаналізувати отримане тіло JSON, код статусу `200 OK`, час відповіді та розмір завантажених даних.
