@@ -170,13 +170,13 @@
         | **Server** | `cloudflare` | Вебсервер / мережа доставки вмісту Cloudflare. |
         | **Connection** | `keep-alive` | Підтримка постійного з'єднання для подальших запитів. |
 
-         <img src="img/9.png" alt="" width="400"/>
+         <img src="img/9.png" alt="" width="900"/>
   
   1. **Дослідження життєвого циклу `Cookie` через Cookie Jar:**
      - Надіслати запит до `https://httpbin.org/cookies/set?user_role=student&session_key=lab1_token` із збереженням отриманих cookies у файл за допомогою прапорця `-c cookies.txt`.
      - Дослідити вміст згенерованого текстового файлу `cookies.txt` (формат Netscape cookie: домен, прапорець захищеності, шлях, термін життя, ім'я та значення).
        
-       <img src="img/10.png" alt="" width="400"/>
+       <img src="img/10.png" alt="" width="600"/>
        
      - Здійснити повторний запит до ендпоінта перевірки `https://httpbin.org/cookies`, передавши збережені cookies за допомогою прапорця `-b cookies.txt`. Переконатися, що сервер розпізнав надіслані cookies у тілі відповіді.
 
