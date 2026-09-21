@@ -227,7 +227,14 @@
       | **Access-Control-Max-Age** | `3600` | Час у секундах (1 година), протягом якого браузер може кЕшувати результати Preflight[cite: 17]. |
 
      <img src="img/13.png" alt="" width="900"/>
+
+      ## Висновки
+
+      Під час виконання практичної роботи проведено аналіз HTTPS/TLS, Cookies та політики CORS за допомогою `curl`.
       
+      * **HTTPS/TLS:** Досліджено процес рукостискання TLS Handshake на порту 443[cite: 14] та підтверджено роботу примусового перенаправлення з HTTP на HTTPS через заголовок `Location` зі статусом `301 Moved Permanently`[cite: 15].
+      * **Cookies:** Протестовано збереження куків через Cookie Jar та перевірено атрибути безпеки: `HttpOnly` (захист від XSS)[cite: 16], `Secure` (передача тільки через HTTPS)[cite: 16] та `SameSite=Strict` (захист від CSRF)[cite: 16].
+      * **CORS Preflight:** Симуляція `OPTIONS`-запиту підтвердила успішність перевірки (`200 OK`)[cite: 17], наявність дозволу Origin (`Access-Control-Allow-Origin`)[cite: 17] та параметри кЕшування Preflight-відповіді (`Access-Control-Max-Age`)[cite: 17].
   ---
 
 
