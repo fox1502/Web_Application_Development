@@ -81,8 +81,30 @@
    - Відкрити у веббраузері адресу `https://dummyjson.com/products` із відкритою панеллю **DevTools (вкладка Network)**.
    - Знайти відповідний запит у списку мережевої активності та зафіксувати в окремій таблиці:
      - General: Request URL, Request Method, Status Code, Remote Address.
+    
+        | Секція / Категорія | Параметр / Заголовок | Значення |
+        | :--- | :--- | :--- |
+        | **General** | Request URL | `https://dummyjson.com/docs/products` |
+        | | Request Method | `GET` |
+        | | Status Code | `200 OK (from prefetch cache)` |
+        | | Remote Address | `216.239.34.157:443` |
      - Response Headers: `content-type`, `date`, `server`, `etag`.
+        | Секція / Категорія | Параметр / Заголовок | Значення |
+        | :--- | :--- | :--- |
+        | **Response Headers** | `content-type` | `text/html; charset=utf-8` |
+        | | `date` | `Mon, 21 Sep 2026 11:26:54 GMT` |
+        | | `server` | `cloudflare` |
+        | | `etag` | *(відсутній у відповіді)* |
+
      - Request Headers: `accept`, `user-agent`, `accept-encoding`.
+    
+         | Секція / Категорія | Параметр / Заголовок | Значення |
+      | :--- | :--- | :--- |
+      | **Request Headers** | `accept` | *(Provisional headers are shown: відсутній у режимі prefetch cache)* |
+      | | `user-agent` | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36` |
+      | | `accept-encoding` | *(Provisional headers are shown: відсутній у режимі prefetch cache)* |
+
+
      - Вкладку Timing: проаналізувати тривалість фаз DNS Lookup, Initial connection, Waiting for server response (TTFB), Content Download.
 
 ---
