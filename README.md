@@ -124,7 +124,59 @@
           | | Waiting for server response (TTFB) | `239.94 ms` |
           | | Content Download | `0.95 ms` |
         ---
+  ### Рівень 3. Просунутий: глибинний аналіз HTTPS/TLS, Cookie та CORS
+  
+  1. **Аналіз TLS Handshake через детальне трасування:**
+     - Виконати запит `curl -v https://dummyjson.com/products/1`.
+     - Зафіксувати у звіті та розібрати ключові етапи узгодження:
+       - Встановлення TCP-з'єднання з IP-адресою та портом 443;
+       - Відправлення `ClientHello` та отримання `ServerHello`;
+       - Перевірка сертифіката (видавець CA, термін дії, Subject Alternative Name);
+       - Узгоджений шифронабір (Cipher Suite) та протокол (наприклад, TLSv1.3 або TLSv1.2).
+      
+        | Категорія | Параметр / Заголовок | Значення з логу | Опис / Пояснення |
+        | :--- | :--- | :--- | :--- |
+        | **TCP Connection** | Remote IP & Port | `172.67.205.42:443` | Встановлено TCP-з'єднання з IP-адресою сервера на порт 443. |
+        | | Local IP & Port | `192.168.0.107:55520` | Локальна IP-адреса та порт клієнта. |
+        | **TLS / SSL Handshake** | SSL Engine | `schannel` | Використано системну бібліотеку Windows Schannel для TLS. |
+        | | ALPN Protocol | `http/1.1` | Узгоджено протокол HTTP/1.1 для передачі даних. |
+        | | SSL Connection | `SSL/TLS connection renegotiated` | Успішно виконано рукостискання та зашифровано канал. |
+        | **Request Headers** | Request Line | `GET /products/1 HTTP/1.1` | Надіслано GET-запит на ендпоінт `/products/1`. |
+        | | `Host` | `dummyjson.com` | Доменне ім'я цільового сервера. |
+        | | `User-Agent` | `curl/8.21.0` | Ідентифікатор клієнта curl. |
+        | | `Accept` | `*/*` | Клієнт приймає будь-який тип відповіді. |
+        | **Response General** | Status Code | `200 OK` | Запит успішно виконано сервером. |
+        | | Server | `cloudflare` | Захист та проксіювання здійснюється Cloudflare. |
+        | **Response Headers** | `content-type` | `application/json; charset=utf-8` | Формат відповіді — JSON у кодуванні UTF-8. |
+        | | `date` | `Mon, 21 Sep 2026 12:44:10 GMT` | Точний час відповіді сервера. |
+        | | `etag` | `W/"5e6-LuZgXJ6APIKHswyRKC9GQ6dXUNE"` | Валідатор кЕшу для перевірки змін ресурсу. |
+        | | `strict-transport-security` | `max-age=15552000; includeSubDomains` | HSTS заголовок (примусовий HTTPS на 180 днів). |
+        | | `cache-control` | `no-store` | Заборона збереження відповіді в кЕші. |
+        | | `cf-cache-status` | `HIT` | Відповідь віддана з Edge-кЕшу Cloudflare. |
 
+     - Порівняти поведінку при примусовому зверненні через незахищений протокол HTTP:
+       - Виконати `curl -I http://dummyjson.com/products/1`.
+       - Зафіксувати повернений статус перенаправлення `301 Moved Permanently` або `308 Permanent Redirect` та наявність заголовка `Location: https://...`.
+  
+  1. **Дослідження життєвого циклу `Cookie` через Cookie Jar:**
+     - Надіслати запит до `https://httpbin.org/cookies/set?user_role=student&session_key=lab1_token` із збереженням отриманих cookies у файл за допомогою прапорця `-c cookies.txt`.
+     - Дослідити вміст згенерованого текстового файлу `cookies.txt` (формат Netscape cookie: домен, прапорець захищеності, шлях, термін життя, ім'я та значення).
+     - Здійснити повторний запит до ендпоінта перевірки `https://httpbin.org/cookies`, передавши збережені cookies за допомогою прапорця `-b cookies.txt`. Переконатися, що сервер розпізнав надіслані cookies у тілі відповіді.
+  
+  2. **Аналіз заголовків безпеки Cookie:**
+     - Надіслати запит до `https://httpbin.org/response-headers` із передачею кастомного заголовка `Set-Cookie` через query-параметри:
+       - Параметр: `Set-Cookie=session_id=xyz789;%20Path=/;%20Secure;%20HttpOnly;%20SameSite=Strict`
+     - Перевірити наявність та значення атрибутів `HttpOnly`, `Secure` і `SameSite` у відповіді через `curl -i`.
+     - Пояснити у звіті, від яких саме векторів атак захищає кожен із цих атрибутів.
+  
+  3. **Симуляція перевірки політики CORS (Preflight Request):**
+     - Використовуючи `curl`, симулювати попередній запит браузера методом `OPTIONS` до ресурсу `https://httpbin.org/post` (або `https://dummyjson.com/products/add`), передавши заголовки:
+       - `-H "Origin: https://my-college-app.edu"`
+       - `-H "Access-Control-Request-Method: POST"`
+       - `-H "Access-Control-Request-Headers: Content-Type, Authorization"`
+     - Проаналізувати заголовки відповіді сервера: чи присутні `Access-Control-Allow-Origin`, `Access-Control-Allow-Methods`, `Access-Control-Allow-Headers` та який статус повернув сервер (`200 OK` або `204 No Content`).
+  
+  ---
 
 
 
