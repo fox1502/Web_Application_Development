@@ -154,28 +154,80 @@
         | | `cache-control` | `no-store` | Заборона збереження відповіді в кЕші. |
         | | `cf-cache-status` | `HIT` | Відповідь віддана з Edge-кЕшу Cloudflare. |
 
+         <img src="img/8.png" alt="" width="400"/>
+        
      - Порівняти поведінку при примусовому зверненні через незахищений протокол HTTP:
        - Виконати `curl -I http://dummyjson.com/products/1`.
        - Зафіксувати повернений статус перенаправлення `301 Moved Permanently` або `308 Permanent Redirect` та наявність заголовка `Location: https://...`.
+
+        | Параметр / Заголовок | Значення з логу | Опис / Пояснення |
+        | :--- | :--- | :--- |
+        | **Request Command** | `curl -I http://dummyjson.com/products/1` | Запит заголовків (HEAD) через незахищений протокол HTTP. |
+        | **Status Code** | `HTTP/1.1 301 Moved Permanently` | Статус-код постійного перенаправлення на нову адресу. |
+        | **Location** | `https://dummyjson.com/products/1` | Цільовий URL, на який сервер примусово перенаправляє клієнта (HTTPS). |
+        | **Content-Type** | `text/html; charset=UTF-8` | Тип вмісту сторінки редіректу. |
+        | **Date** | `Mon, 21 Sep 2026 12:51:12 GMT` | Точний час відповіді сервера. |
+        | **Server** | `cloudflare` | Вебсервер / мережа доставки вмісту Cloudflare. |
+        | **Connection** | `keep-alive` | Підтримка постійного з'єднання для подальших запитів. |
+
+         <img src="img/9.png" alt="" width="400"/>
   
   1. **Дослідження життєвого циклу `Cookie` через Cookie Jar:**
      - Надіслати запит до `https://httpbin.org/cookies/set?user_role=student&session_key=lab1_token` із збереженням отриманих cookies у файл за допомогою прапорця `-c cookies.txt`.
      - Дослідити вміст згенерованого текстового файлу `cookies.txt` (формат Netscape cookie: домен, прапорець захищеності, шлях, термін життя, ім'я та значення).
+       
+       <img src="img/10.png" alt="" width="400"/>
+       
      - Здійснити повторний запит до ендпоінта перевірки `https://httpbin.org/cookies`, передавши збережені cookies за допомогою прапорця `-b cookies.txt`. Переконатися, що сервер розпізнав надіслані cookies у тілі відповіді.
+
+       <img src="img/11.png" alt="" width="400"/>
   
   2. **Аналіз заголовків безпеки Cookie:**
      - Надіслати запит до `https://httpbin.org/response-headers` із передачею кастомного заголовка `Set-Cookie` через query-параметри:
        - Параметр: `Set-Cookie=session_id=xyz789;%20Path=/;%20Secure;%20HttpOnly;%20SameSite=Strict`
      - Перевірити наявність та значення атрибутів `HttpOnly`, `Secure` і `SameSite` у відповіді через `curl -i`.
      - Пояснити у звіті, від яких саме векторів атак захищає кожен із цих атрибутів.
-  
-  3. **Симуляція перевірки політики CORS (Preflight Request):**
+
+      | Параметр / Заголовок | Значення з логу | Опис / Пояснення |
+      | :--- | :--- | :--- |
+      | **Request Command** | `curl -i "https://httpbin.org/response-headers?Set-Cookie=session_id=xyz789;%20Path=/;%20Secure;%20HttpOnly;%20SameSite=Strict"` | Запит для симуляції генерації заголовка `Set-Cookie` сервером. |
+      | **Status Code** | `HTTP/1.1 200 OK` | Запит успішно виконано. |
+      | **Date** | `Mon, 21 Sep 2026 13:02:43 GMT` | Точний час відповіді сервера. |
+      | **Content-Type** | `application/json` | Формат даних відповіді. |
+      | **Server** | `gunicorn/19.9.0` | Вебсервер, на якому запущено httpbin. |
+      | **Set-Cookie** | `session_id=xyz789; Path=/; Secure; HttpOnly; SameSite=Strict` | Інструкція браузеру зберегти cookie `session_id` із вказаними атрибутами безпеки. |
+      | **`Path=/`** | `/` | Cookie дійсна для всіх маршрутів домену. |
+      | **`Secure`** | *Присутній* | Передача cookie дозволена виключно через HTTPS. |
+      | **`HttpOnly`** | *Присутній* | Заборона доступу до cookie через JavaScript (`document.cookie`). |
+      | **`SameSite`** | `Strict` | Повне блокування передачі cookie при міжсайтових запитах. |
+      | **Access-Control-Allow-Origin** | `*` | Дозвіл крос-доменних запитів з будь-якого Origin. |
+      | **Access-Control-Allow-Credentials**| `true` | Дозвіл передавати учетні дані (cookies/auth headers) при CORS. |
+
+       <img src="img/12.png" alt="" width="400"/>
+     
+  4. **Симуляція перевірки політики CORS (Preflight Request):**
      - Використовуючи `curl`, симулювати попередній запит браузера методом `OPTIONS` до ресурсу `https://httpbin.org/post` (або `https://dummyjson.com/products/add`), передавши заголовки:
        - `-H "Origin: https://my-college-app.edu"`
        - `-H "Access-Control-Request-Method: POST"`
        - `-H "Access-Control-Request-Headers: Content-Type, Authorization"`
      - Проаналізувати заголовки відповіді сервера: чи присутні `Access-Control-Allow-Origin`, `Access-Control-Allow-Methods`, `Access-Control-Allow-Headers` та який статус повернув сервер (`200 OK` або `204 No Content`).
-  
+
+      | Параметр / Заголовок | Значення з логу | Опис / Пояснення |
+      | :--- | :--- | :--- |
+      | **Request Command** | `curl -i -X OPTIONS https://httpbin.org/post \` | Симуляція CORS Preflight (запит методом OPTIONS)[cite: 17]. |
+      | **Status Code** | `HTTP/1.1 200 OK` | Сервер успішно обробив попередній запит перевірки[cite: 17]. |
+      | **Date** | `Mon, 21 Sep 2026 13:04:50 GMT` | Точний час відповіді сервера[cite: 17]. |
+      | **Content-Type** | `text/html; charset=utf-8` | Формат даних відповіді[cite: 17]. |
+      | **Content-Length** | `0` | Тіло відповіді порожнє (стандартно для Preflight)[cite: 17]. |
+      | **Server** | `gunicorn/19.9.0` | Вебсервер додатка[cite: 17]. |
+      | **Allow** | `OPTIONS, POST` | HTTP-методи, які безпосередньо підтримує дане джерело[cite: 17]. |
+      | **Access-Control-Allow-Origin** | `*` | Сервер дозволяє крос-доменні запити з будь-яких Origin[cite: 17]. |
+      | **Access-Control-Allow-Credentials** | `true` | Дозвіл передавати учетні дані (cookies/auth headers) при CORS[cite: 17]. |
+      | **Access-Control-Allow-Methods** | `GET, POST, PUT, DELETE, PATCH, OPTIONS` | Перелік дозволених HTTP-методів для міжсайтових запитів[cite: 17]. |
+      | **Access-Control-Max-Age** | `3600` | Час у секундах (1 година), протягом якого браузер може кЕшувати результати Preflight[cite: 17]. |
+
+     <img src="img/13.png" alt="" width="400"/>
+      
   ---
 
 
