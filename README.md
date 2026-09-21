@@ -98,11 +98,11 @@
 
      - Request Headers: `accept`, `user-agent`, `accept-encoding`.
     
-         | Секція / Категорія | Параметр / Заголовок | Значення |
-      | :--- | :--- | :--- |
-      | **Request Headers** | `accept` | *(Provisional headers are shown: відсутній у режимі prefetch cache)* |
-      | | `user-agent` | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36` |
-      | | `accept-encoding` | *(Provisional headers are shown: відсутній у режимі prefetch cache)* |
+        | Секція / Категорія | Параметр / Заголовок | Значення |
+        | :--- | :--- | :--- |
+        | **Request Headers** | `accept` | *(Provisional headers are shown: відсутній у режимі prefetch cache)* |
+        | | `user-agent` | `Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36` |
+        | | `accept-encoding` | *(Provisional headers are shown: відсутній у режимі prefetch cache)* |
 
 
      - Вкладку Timing: проаналізувати тривалість фаз DNS Lookup, Initial connection, Waiting for server response (TTFB), Content Download.
