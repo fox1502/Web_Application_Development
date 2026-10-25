@@ -51,24 +51,29 @@ npx tsc --init
 ---
 
 ## Рівень 1. Базовий: структура проєкту та моделювання сутностей
-/ Ініціалізація робочого простору:
-Створити каталог проєкту, ініціалізувати package.json.
-Встановити залежності розробки (devDependencies): typescript, tsx, @types/node.
-Згенерувати файл tsconfig.json, налаштувати суворий режим перевірки (strict: true, noImplicitAny: true, target: ES2022, module: NodeNext, moduleResolution: NodeNext).
-Додати у package.json команду "start": "tsx src/index.ts".
-Моделювання базових типів та інтерфейсів:
-Оголосити тип ідентифікатора сутності (union type) type EntityId = string | number.
-Створити базовий інтерфейс товару BaseProduct:
+**Ініціалізація робочого простору:**
+
+- Створити каталог проєкту, ініціалізувати package.json.
+- Встановити залежності розробки (devDependencies): typescript, tsx, @types/node.
+- Згенерувати файл tsconfig.json, налаштувати суворий режим перевірки (strict: true, noImplicitAny: true, target: ES2022, module: NodeNext, moduleResolution: NodeNext).
+- Додати у package.json команду "start": "tsx src/index.ts".
+- 
+**Моделювання базових типів та інтерфейсів:**
+  
+- Оголосити тип ідентифікатора сутності (union type) type EntityId = string | number.
+- Створити базовий інтерфейс товару BaseProduct:
 readonly id: EntityId;
 title: string;
 price: number;
 description?: string (опціональне поле);
 tags: string[] (масив рядків);
 inStock: boolean.
-Створити тип або інтерфейс специфічного товару Product, розширивши базову сутність характеристиками згідно зі своїм варіантом.
-Базові функції обробки каталогу:
-Написати функцію створення сутності товару createProduct(productData) із суворою типізацією вхідних параметрів та поверненого значення (return type).
-Написати функцію розрахунку вартості позиції calculateLineTotal(price: number, quantity: number, discountPercent: number = 0): number з використанням дефолтного параметра (default parameter).
-Забезпечити валідацію вхідних параметрів: кількість та ціна не можуть бути від'ємними (при некоректних даних кидати Error).
+- Створити тип або інтерфейс специфічного товару Product, розширивши базову сутність характеристиками згідно зі своїм варіантом.
+
+  **Базові функції обробки каталогу:**
+  
+- Написати функцію створення сутності товару createProduct(productData) із суворою типізацією вхідних параметрів та поверненого значення (return type).
+- Написати функцію розрахунку вартості позиції calculateLineTotal(price: number, quantity: number, discountPercent: number = 0): number з використанням дефолтного параметра (default parameter).
+- Забезпечити валідацію вхідних параметрів: кількість та ціна не можуть бути від'ємними (при некоректних даних кидати Error).
 
 
