@@ -57,28 +57,23 @@
 2. **Дослідження методів REST API в Postman:**
    - Виконати запит `GET https://dummyjson.com/products/1` — проаналізувати отримане тіло JSON, код статусу `200 OK`, час відповіді та розмір завантажених даних.
 
-       <img src="Web_Application_Development
-/img/3.png" alt="" width="400"/>
+       <img src="Web_Application_Development/img/3.png" alt="" width="400"/>
      
    - Виконати запит `POST https://dummyjson.com/products/add` — передати у тілі (Body -> raw JSON) об'єкт нового товару (поля `title`, `price`). Проаналізувати код статусу `201 Created` та отриманий згенерований `id`.
   
-        <img src="Web_Application_Development
-/img/4.png" alt="" width="400"/>
+        <img src="Web_Application_Development/img/4.png" alt="" width="400"/>
 
    - Виконати запит `PUT https://dummyjson.com/products/1` — надіслати змінене поле `title` та перевірити повернений результат.
   
-        <img src="Web_Application_Development
-/img/5.png" alt="" width="400"/>
+        <img src="Web_Application_Development/img/5.png" alt="" width="400"/>
 
    - Виконати запит `DELETE https://dummyjson.com/products/1` — зафіксувати код статусу та наявність позначки видалення `isDeleted: true`.
   
-      <img src="Web_Application_Development
-/img/6.png" alt="" width="400"/>
+      <img src="Web_Application_Development/img/6.png" alt="" width="400"/>
 
    - Зберегти створені запити у колекцію Postman (або у файл `requests.http`).
 
-      <img src="Web_Application_Development
-/img/7.png" alt="" width="400"/>
+      <img src="Web_Application_Development/img/7.png" alt="" width="400"/>
 
 ---
 
@@ -183,13 +178,11 @@
      - Надіслати запит до `https://httpbin.org/cookies/set?user_role=student&session_key=lab1_token` із збереженням отриманих cookies у файл за допомогою прапорця `-c cookies.txt`.
      - Дослідити вміст згенерованого текстового файлу `cookies.txt` (формат Netscape cookie: домен, прапорець захищеності, шлях, термін життя, ім'я та значення).
        
-       <img src="Web_Application_Development
-/img/10.png" alt="" width="600"/>
+       <img src="Web_Application_Development/img/10.png" alt="" width="600"/>
        
      - Здійснити повторний запит до ендпоінта перевірки `https://httpbin.org/cookies`, передавши збережені cookies за допомогою прапорця `-b cookies.txt`. Переконатися, що сервер розпізнав надіслані cookies у тілі відповіді.
 
-       <img src="Web_Application_Development
-/img/11.png" alt="" width="900"/>
+       <img src="Web_Application_Development/img/11.png" alt="" width="900"/>
   
   2. **Аналіз заголовків безпеки Cookie:**
      - Надіслати запит до `https://httpbin.org/response-headers` із передачею кастомного заголовка `Set-Cookie` через query-параметри:
@@ -212,8 +205,7 @@
       | **Access-Control-Allow-Origin** | `*` | Дозвіл крос-доменних запитів з будь-якого Origin. |
       | **Access-Control-Allow-Credentials**| `true` | Дозвіл передавати учетні дані (cookies/auth headers) при CORS. |
 
-       <img src="Web_Application_Development
-/img/12.png" alt="" width="900"/>
+       <img src="Web_Application_Development/img/12.png" alt="" width="900"/>
      
   4. **Симуляція перевірки політики CORS (Preflight Request):**
      - Використовуючи `curl`, симулювати попередній запит браузера методом `OPTIONS` до ресурсу `https://httpbin.org/post` (або `https://dummyjson.com/products/add`), передавши заголовки:
@@ -236,8 +228,7 @@
       | **Access-Control-Allow-Methods** | `GET, POST, PUT, DELETE, PATCH, OPTIONS` | Перелік дозволених HTTP-методів для міжсайтових запитів[cite: 17]. |
       | **Access-Control-Max-Age** | `3600` | Час у секундах (1 година), протягом якого браузер може кЕшувати результати Preflight[cite: 17]. |
 
-     <img src="Web_Application_Development
-/img/13.png" alt="" width="900"/>
+     <img src="Web_Application_Development/img/13.png" alt="" width="900"/>
 
       ## Висновки
 
