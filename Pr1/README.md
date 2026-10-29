@@ -50,11 +50,9 @@
    - Перевірити наявність та доступність інструментів `curl` у терміналі (`curl --version`).
    - Відкрити графічний клієнт Postman або налаштувати розширення REST Client у VS Code.
   
-   <img src="Web_Application_Development
-/img/1.png" alt="" width="700"/>
+   <img src="Web_Application_Development/img/1.png" alt="" width="700"/>
 
-     <img src="Web_Application_Development
-/img/2.png" alt="" width="600"/>
+     <img src="Web_Application_Development/img/2.png" alt="" width="600"/>
 
 2. **Дослідження методів REST API в Postman:**
    - Виконати запит `GET https://dummyjson.com/products/1` — проаналізувати отримане тіло JSON, код статусу `200 OK`, час відповіді та розмір завантажених даних.
